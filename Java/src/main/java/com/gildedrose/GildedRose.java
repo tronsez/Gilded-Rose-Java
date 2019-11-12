@@ -12,35 +12,42 @@ class GildedRose {
             doUpdateQuality(item);
         }
     }
-
+    public void decreaseQuality(Item item){
+        item.quality=item.quality -1;
+    }
+    public void increaseQuality(Item item){
+        item.quality=item.quality +1;
+    }
     private void doUpdateQuality(Item item) {
         switch (item.name) {
+            //OBSLUGA PRZEDMIOTU AGED BRIE
             case "Aged Brie":
                 if (item.quality < 50) {
-                    item.quality = item.quality + 1;
+                    increaseQuality(item);
                 }
 
                 item.sellIn = item.sellIn - 1;
 
                 if (item.sellIn < 0) {
                     if (item.quality < 50) {
-                        item.quality = item.quality + 1;
+                        increaseQuality(item);
                     }
                 }
                 break;
+            //OBSLUGA PRZEDMIOTU BILET
             case "Backstage passes to a TAFKAL80ETC concert":
                 if (item.quality < 50) {
-                    item.quality = item.quality + 1;
+                    increaseQuality(item);
 
                     if (item.sellIn < 11) {
                         if (item.quality < 50) {
-                            item.quality = item.quality + 1;
+                            increaseQuality(item);
                         }
                     }
 
                     if (item.sellIn < 6) {
                         if (item.quality < 50) {
-                            item.quality = item.quality + 1;
+                            increaseQuality(item);
                         }
                     }
                 }
@@ -51,34 +58,37 @@ class GildedRose {
                     item.quality = 0;
                 }
                 break;
+            //OBSLUGA PRZEDMIOTU SULFURAS
             case "Sulfuras, Hand of Ragnaros":
 
                 break;
-
+            //OBSLUGA PRZEDMIOTU CONJURED
             case "Conjured Mana Cake":
                 if (item.quality > 0) {
-                    item.quality = item.quality - 2;
+                    decreaseQuality(item);
+                    decreaseQuality(item);
                 }
 
                 item.sellIn = item.sellIn - 1;
 
                 if (item.sellIn < 0) {
                     if (item.quality > 0) {
-                        item.quality = item.quality - 2;
+                        decreaseQuality(item);
+                        decreaseQuality(item);
                     }
                 }
                 break;
-
+            //OBSLUGA POZOSTALYCH PRZEDMIOTOW
             default:
                 if (item.quality > 0) {
-                    item.quality = item.quality - 1;
+                    decreaseQuality(item);
                 }
 
                 item.sellIn = item.sellIn - 1;
 
                 if (item.sellIn < 0) {
                     if (item.quality > 0) {
-                        item.quality = item.quality - 1;
+                        decreaseQuality(item);
                     }
                 }
                 break;
