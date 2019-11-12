@@ -12,51 +12,16 @@ class GildedRose {
             doUpdateQuality(item);
         }
     }
-    public void decreaseQuality(Item item){
-        item.quality=item.quality -1;
-    }
-    public void increaseQuality(Item item){
-        item.quality=item.quality +1;
-    }
+
     private void doUpdateQuality(Item item) {
         switch (item.name) {
             //OBSLUGA PRZEDMIOTU AGED BRIE
             case "Aged Brie":
-                if (item.quality < 50) {
-                    increaseQuality(item);
-                }
-
-                item.sellIn = item.sellIn - 1;
-
-                if (item.sellIn < 0) {
-                    if (item.quality < 50) {
-                        increaseQuality(item);
-                    }
-                }
+                AgedBrie (item);
                 break;
             //OBSLUGA PRZEDMIOTU BILET
             case "Backstage passes to a TAFKAL80ETC concert":
-                if (item.quality < 50) {
-                    increaseQuality(item);
-
-                    if (item.sellIn < 11) {
-                        if (item.quality < 50) {
-                            increaseQuality(item);
-                        }
-                    }
-
-                    if (item.sellIn < 6) {
-                        if (item.quality < 50) {
-                            increaseQuality(item);
-                        }
-                    }
-                }
-
-                item.sellIn = item.sellIn - 1;
-
-                if (item.sellIn < 0) {
-                    item.quality = 0;
-                }
+                BackPass (item);
                 break;
             //OBSLUGA PRZEDMIOTU SULFURAS
             case "Sulfuras, Hand of Ragnaros":
@@ -64,35 +29,92 @@ class GildedRose {
                 break;
             //OBSLUGA PRZEDMIOTU CONJURED
             case "Conjured Mana Cake":
-                if (item.quality > 0) {
-                    decreaseQuality(item);
-                    decreaseQuality(item);
-                }
-
-                item.sellIn = item.sellIn - 1;
-
-                if (item.sellIn < 0) {
-                    if (item.quality > 0) {
-                        decreaseQuality(item);
-                        decreaseQuality(item);
-                    }
-                }
+                Conjured (item);
                 break;
             //OBSLUGA POZOSTALYCH PRZEDMIOTOW
             default:
-                if (item.quality > 0) {
-                    decreaseQuality(item);
-                }
-
-                item.sellIn = item.sellIn - 1;
-
-                if (item.sellIn < 0) {
-                    if (item.quality > 0) {
-                        decreaseQuality(item);
-                    }
-                }
+                defaultitem (item);
                 break;
         }
     }
+    
+
+    public void decreaseQuality(Item item){
+        item.quality=item.quality -1;
+    }
+
+    public void increaseQuality(Item item){
+        item.quality=item.quality +1;
+    }
+
+    public void AgedBrie (Item item){
+        if (item.quality < 50) {
+            increaseQuality(item);
+        }
+
+        item.sellIn = item.sellIn - 1;
+
+        if (item.sellIn < 0) {
+            if (item.quality < 50) {
+                increaseQuality(item);
+            }
+        }
+    }
+
+    public void BackPass (Item item){
+        if (item.quality < 50) {
+            increaseQuality(item);
+
+            if (item.sellIn < 11) {
+                if (item.quality < 50) {
+                    increaseQuality(item);
+                }
+            }
+
+            if (item.sellIn < 6) {
+                if (item.quality < 50) {
+                    increaseQuality(item);
+                }
+            }
+        }
+
+        item.sellIn = item.sellIn - 1;
+
+        if (item.sellIn < 0) {
+            item.quality = 0;
+        }
+    }
+
+    public void Conjured (Item item){
+        if (item.quality > 0) {
+            decreaseQuality(item);
+            decreaseQuality(item);
+        }
+
+        item.sellIn = item.sellIn - 1;
+
+        if (item.sellIn < 0) {
+            if (item.quality > 0) {
+                decreaseQuality(item);
+                decreaseQuality(item);
+            }
+        }
+    }
+
+    public void defaultitem (Item item){
+        if (item.quality > 0) {
+            decreaseQuality(item);
+        }
+
+        item.sellIn = item.sellIn - 1;
+
+        if (item.sellIn < 0) {
+            if (item.quality > 0) {
+                decreaseQuality(item);
+            }
+        }
+    }
+
+
 
 }
