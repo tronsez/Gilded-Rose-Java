@@ -37,7 +37,7 @@ class GildedRose {
                 break;
         }
     }
-    
+
 
     public void decreaseQuality(Item item){
         item.quality=item.quality -1;
@@ -47,17 +47,19 @@ class GildedRose {
         item.quality=item.quality +1;
     }
 
-    public void AgedBrie (Item item){
+    public void increasewhenlessthan50 (Item item){
         if (item.quality < 50) {
             increaseQuality(item);
         }
+    }
+
+    public void AgedBrie (Item item){
+        increasewhenlessthan50 (item);
 
         item.sellIn = item.sellIn - 1;
 
         if (item.sellIn < 0) {
-            if (item.quality < 50) {
-                increaseQuality(item);
-            }
+            increasewhenlessthan50 (item);
         }
     }
 
@@ -66,15 +68,11 @@ class GildedRose {
             increaseQuality(item);
 
             if (item.sellIn < 11) {
-                if (item.quality < 50) {
-                    increaseQuality(item);
-                }
+                increasewhenlessthan50 (item);
             }
 
             if (item.sellIn < 6) {
-                if (item.quality < 50) {
-                    increaseQuality(item);
-                }
+                increasewhenlessthan50 (item);
             }
         }
 
@@ -114,7 +112,4 @@ class GildedRose {
             }
         }
     }
-
-
-
 }
