@@ -53,6 +53,12 @@ class GildedRose {
         }
     }
 
+    public void stay0 (Item item){
+        if (item.sellIn < 0) {
+            item.quality = 0;
+        }
+    }
+
     public void AgedBrie (Item item){
         increasewhenlessthan50 (item);
 
@@ -78,9 +84,7 @@ class GildedRose {
 
         item.sellIn = item.sellIn - 1;
 
-        if (item.sellIn < 0) {
-            item.quality = 0;
-        }
+        stay0 (item);
     }
 
     public void Conjured (Item item){
