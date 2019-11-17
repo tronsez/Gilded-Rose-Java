@@ -17,11 +17,35 @@ class GildedRose {
         switch (item.name) {
             //OBSLUGA PRZEDMIOTU AGED BRIE
             case "Aged Brie":
-                AgedBrie (item);
+                if (item.quality < 50) {
+                    increaseQuality(item);
+                }
+
+                item.sellIn = item.sellIn - 1;
+
+                if (item.sellIn < 0 && item.quality < 50) {
+                    increaseQuality(item);
+                }
                 break;
             //OBSLUGA PRZEDMIOTU BILET
             case "Backstage passes to a TAFKAL80ETC concert":
-                BackPass (item);
+                if (item.quality < 50) {
+                    increaseQuality(item);
+
+                    if (item.sellIn < 11 && item.quality < 50) {
+                        increaseQuality(item);
+                    }
+
+                    if (item.sellIn < 6 && item.quality < 50) {
+                        increaseQuality(item);
+                    }
+                }
+
+                item.sellIn = item.sellIn - 1;
+
+                if (item.sellIn < 0) {
+                    item.quality = 0;
+                }
                 break;
             //OBSLUGA PRZEDMIOTU SULFURAS
             case "Sulfuras, Hand of Ragnaros":
@@ -29,15 +53,32 @@ class GildedRose {
                 break;
             //OBSLUGA PRZEDMIOTU CONJURED
             case "Conjured Mana Cake":
-                Conjured (item);
+                if (item.quality > 0) {
+                    decreaseQuality(item);
+                    decreaseQuality(item);
+                }
+
+                item.sellIn = item.sellIn - 1;
+
+                if (item.sellIn < 0 && item.quality > 0 ) {
+                    decreaseQuality(item);
+                    decreaseQuality(item);
+                }
                 break;
             //OBSLUGA POZOSTALYCH PRZEDMIOTOW
             default:
-                defaultitem (item);
+                if (item.quality > 0) {
+                    decreaseQuality(item);
+                }
+
+                item.sellIn = item.sellIn - 1;
+
+                if (item.sellIn < 0 && item.quality > 0) {
+                    decreaseQuality(item);
+                }
                 break;
         }
     }
-
 
     public void decreaseQuality(Item item){
         item.quality=item.quality -1;
@@ -45,75 +86,5 @@ class GildedRose {
 
     public void increaseQuality(Item item){
         item.quality=item.quality +1;
-    }
-
-    public void increasewhenlessthan50 (Item item){
-        if (item.quality < 50) {
-            increaseQuality(item);
-        }
-    }
-
-    public void stay0 (Item item){
-        if (item.sellIn < 0) {
-            item.quality = 0;
-        }
-    }
-
-    public void AgedBrie (Item item){
-        increasewhenlessthan50 (item);
-
-        item.sellIn = item.sellIn - 1;
-
-        if (item.sellIn < 0) {
-            increasewhenlessthan50 (item);
-        }
-    }
-
-    public void BackPass (Item item){
-        if (item.quality < 50) {
-            increaseQuality(item);
-
-            if (item.sellIn < 11) {
-                increasewhenlessthan50 (item);
-            }
-
-            if (item.sellIn < 6) {
-                increasewhenlessthan50 (item);
-            }
-        }
-
-        item.sellIn = item.sellIn - 1;
-
-        stay0 (item);
-    }
-
-    public void Conjured (Item item){
-        if (item.quality > 0) {
-            decreaseQuality(item);
-            decreaseQuality(item);
-        }
-
-        item.sellIn = item.sellIn - 1;
-
-        if (item.sellIn < 0) {
-            if (item.quality > 0) {
-                decreaseQuality(item);
-                decreaseQuality(item);
-            }
-        }
-    }
-
-    public void defaultitem (Item item){
-        if (item.quality > 0) {
-            decreaseQuality(item);
-        }
-
-        item.sellIn = item.sellIn - 1;
-
-        if (item.sellIn < 0) {
-            if (item.quality > 0) {
-                decreaseQuality(item);
-            }
-        }
     }
 }
